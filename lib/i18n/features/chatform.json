@@ -1,0 +1,30 @@
+{
+    "popups": {
+      "onExit": {
+        "title": "Deseja realmente **sair**?",
+        "message": "Você quer **sair do chat** e **voltar para a tela inicial** do aplicativo?",
+        "summary": "**Caso queira** apenas **alterar** alguma **informação**, aperte no **botão azul ao lado** da sua **mensagem.**",
+        "compactSummary": "Você quer **sair do chat e voltar para a tela inicial** do aplicativo?",
+        "exit": "Sair do chat",
+        "continueHere": "Continuar aqui"
+      },
+      "resendAccessCodeConfirmation": {
+        "title": "**Reenviamos** o código de acesso!",
+        "telMessage": "O código de acesso foi reenviado para o celular: ",
+        "emailMessage": "O código de acesso foi reenviado para o e-mail: ",
+        "telReminder": "Lembre de checar as suas mensagens!",
+        "emailReminder": "Lembre de chegar a caixa de spams!",
+        "confirmation": "OK, entendi"
+      }
+    },
+    "bottomSheets": {
+      "accessCode": {
+        "title": "Digite o **código de acesso**"
+      },
+      "resendCode": {
+        "title": "Por onde deseja **reenviar**?",
+        "whatsappSubtitle": "Receber um acesso no meu WhatsApp.",
+        "smsSubtitle": "Reenviar o código para o meu celular."
+      }
+    }
+  }

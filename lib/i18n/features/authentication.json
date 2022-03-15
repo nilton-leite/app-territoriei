@@ -1,0 +1,18 @@
+{
+    "loginScreen": {
+      "helperScreen": {
+        "titleScreen": "Está com **problemas** para **acessar** o **TRIZY**",
+        "summary": "Você pode falar com a nossa equipe de atendimento e **solucionar o problema!**",
+        "description": "**Conte** para a gente **o que está acontecendo** e qual **o seu problema** com o **máximo de detalhes** que puder..",
+        "btn": "IR PARA ATENDIMENTO"
+      }
+    },
+    "signupScreen": {
+      "labelInitialScreen": "É um prazer acompanhar você durante as viagens! Vamos lá?",
+      "btnNumber": "Criar com o número do celular",
+      "btnGoogle": "Criar com o Google",
+      "btnFace": "Criar com o Facebook",
+      "labelHasAccount": "Já possui uma conta?",
+      "btnLogin": "ENTRAR"
+    }
+  }

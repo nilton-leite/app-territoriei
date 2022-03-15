@@ -1,39 +1,43 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:territoriei/utils/interfaces/ihttp_client.dart';
-
 
 class DioHttpClient implements IHttpClient {
   final Dio client;
 
   DioHttpClient({required this.client});
 
-  HttpClientResponse _parse(Response<String> response) async {
-    Map<String, dynamic> result;
+  HttpClientResponse _parse(Response response) async {
+    List<dynamic> result;
     final data = response.data;
     try {
       if (data != null) {
-        result = Map.castFrom((await compute(jsonDecode, data))! as Map);
+        result = jsonDecode(data);
       } else {
         throw Exception('data=$data');
       }
     } catch (e) {
-      result = {
-        'message': data,
-        'exception': e.toString(),
-      };
+      result = [
+        {
+          'message': data,
+          'exception': e.toString(),
+        }
+      ];
     }
     return result;
   }
 
   HttpClientResponse request(RequestOptions options) async {
     try {
-      final response = await client.fetch<String>(options);
+      final Response response = await client.fetch<String>(options);
 
       return _parse(response);
     } catch (e) {
+      log('No dio expection');
+      log(e.toString());
       if (e is DioError) {
         if (e.response != null) {
           final response = e.response!;
@@ -85,6 +89,9 @@ class DioHttpClient implements IHttpClient {
   @override
   HttpClientResponse get(String url,
       {Map<String, dynamic> headers = const {}}) {
+    log('Na url do GET ');
+    log(url);
+    log(headers.toString());
     return request(
       RequestOptions(
         path: url,

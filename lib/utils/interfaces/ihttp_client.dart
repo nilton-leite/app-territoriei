@@ -1,4 +1,4 @@
-typedef HttpClientResponse = Future<Map<String, dynamic>>;
+typedef HttpClientResponse = Future<List<dynamic>>;
 
 abstract class ApiException implements Exception {
   const ApiException();

@@ -1,0 +1,1 @@
+🔣 Traduções por funcionalidade, ex: ``authentication.js``
