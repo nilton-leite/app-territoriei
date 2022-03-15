@@ -27,8 +27,6 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     emitter(GroupGettingSession());
     try {
       final groups = await repository.getGroups();
-      log('aQUI ESTOU');
-      log(groups.toString());
       emitter(GroupGettingSessionSuccess(groups: groups));
     } catch (e) {
       emitter(GroupGettingSessionFailure(e));

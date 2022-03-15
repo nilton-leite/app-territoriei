@@ -89,9 +89,6 @@ class DioHttpClient implements IHttpClient {
   @override
   HttpClientResponse get(String url,
       {Map<String, dynamic> headers = const {}}) {
-    log('Na url do GET ');
-    log(url);
-    log(headers.toString());
     return request(
       RequestOptions(
         path: url,
