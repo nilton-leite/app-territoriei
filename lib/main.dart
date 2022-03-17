@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:territoriei/features/group/screens/screens.dart';
+import 'package:territoriei/features/initScreen.dart';
 import 'package:territoriei/i18n/translations.i18n.dart';
 import 'package:territoriei/routes.dart';
 import 'package:territoriei/repositories/repositories.dart';
@@ -64,7 +64,7 @@ class TerritorieiState extends State<Territoriei> {
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         onGenerateTitle: (context) => language.appName,
         routes: routes,
-        initialRoute: GroupScreen.route,
+        initialRoute: InitScreen.route,
       ),
     );
   }

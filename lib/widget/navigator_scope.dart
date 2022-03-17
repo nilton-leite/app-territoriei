@@ -16,7 +16,7 @@ class NavigatorScope extends StatefulWidget {
   final Future<bool> Function()? onWillPop;
 
   /// Default constructor
-  NavigatorScope({
+  const NavigatorScope({
     Key? key,
     required this.routes,
     required this.builder,

@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_full_hex_values_for_flutter_colors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:territoriei/repositories/igroup_repository.dart';
 import 'package:territoriei/routes.dart';
+import 'package:territoriei/widget/dynamic_icon.dart';
+import 'package:territoriei/widget/progress.dart';
 import 'package:territoriei/widget/navigator_scope.dart';
 
 import '../blocs/group_bloc.dart';
@@ -52,13 +54,12 @@ class _GroupState extends State<_Group> {
   late final IGroupRepository repository;
   late final _groupBloc = BlocProvider.of<GroupBloc>(context);
   final _controller = ScrollController();
-  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _groupBloc.add(GroupGetSessionEvent());
+      _groupBloc.add(GroupGetGroupEvent());
     });
   }
 
@@ -86,6 +87,8 @@ class _GroupState extends State<_Group> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+        GlobalKey<RefreshIndicatorState>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Territórios'),
@@ -112,16 +115,14 @@ class _GroupState extends State<_Group> {
         },
         bloc: _groupBloc,
         builder: (context, state) {
-          if (state is GroupWithoutSession || state is GroupGettingSession) {
-            return const Center(child: CircularProgressIndicator());
+          if (state is GroupWithoutGroup || state is GroupGettingGroup) {
+            return Center(child: Progress());
           }
 
-          if (state is GroupGettingSessionSuccess) {
-            final composition = state.groups;
-            // ignore: avoid_print
-            print(composition);
+          if (state is GroupGettingGroupSuccess) {
+            final groups = state.groups;
             return Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
                   margin: const EdgeInsets.only(top: 40, left: 20),
@@ -130,13 +131,12 @@ class _GroupState extends State<_Group> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'Serviços',
-                        style: GoogleFonts.dancingScript(
+                        'Grupos',
+                        style: GoogleFonts.lato(
                           textStyle: TextStyle(
-                            // ignore: use_full_hex_values_for_flutter_colors
-                            color: Color(0xffcc39191),
-                            letterSpacing: .5,
-                            fontSize: 40,
+                            color: Color(0xffFFFFFF),
+                            // letterSpacing: .5,
+                            fontSize: 30,
                           ),
                         ),
                       ),
@@ -146,12 +146,69 @@ class _GroupState extends State<_Group> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                 ),
-                Divider(
-                  height: 20,
-                  thickness: 1,
-                  indent: 20,
-                  endIndent: 20,
-                ),
+
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    width: double.infinity,
+                    child: RefreshIndicator(
+                      key: _refreshIndicatorKey,
+                      onRefresh: () async {
+                        _groupBloc.add(GroupGetGroupEvent());
+                      },
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 1,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 10,
+                        ),
+                        itemCount: groups.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () => '',
+                              child: Card(
+                                color: Color(0xFF868A8F),
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(20.0),
+                                      child: DynamicIcon(
+                                        'map_outlined',
+                                        color: Color(0xFFFFFFFFF),
+                                        size: 80.0,
+                                      ),
+                                    ),
+                                    Text(
+                                      groups[index].description.toUpperCase(),
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(
+                                          color: Color(0xffFFC000),
+                                          letterSpacing: .5,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                )
                 // _expansionServices(),
                 // _cardsServices()
               ],

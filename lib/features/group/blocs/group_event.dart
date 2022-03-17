@@ -5,17 +5,15 @@ abstract class GroupEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GroupGetSessionEvent extends GroupEvent {
-  final Locale? locale;
-  final String? userId;
+class GroupGetGroupEvent extends GroupEvent {
+  final String? id;
 
-  GroupGetSessionEvent({
-    this.locale,
-    this.userId,
+  GroupGetGroupEvent({
+    this.id,
   });
 
   @override
-  List<Object?> get props => [locale, userId];
+  List<Object?> get props => [id];
 }
 
 // class GroupSendResponseEvent extends GroupEvent {

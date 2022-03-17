@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:territoriei/environment.dart';
 import 'package:territoriei/models/group.dart';

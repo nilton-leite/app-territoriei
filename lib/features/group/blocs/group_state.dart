@@ -5,29 +5,31 @@ abstract class GroupState extends Equatable {
   List<Object?> get props => [];
 }
 
-class GroupWithoutSession extends GroupState {}
+class GroupWithoutGroup extends GroupState {}
 
-class GroupGettingSession extends GroupState {}
+class GroupRefreshingGroup extends GroupState {}
 
-class GroupGettingSessionSuccess extends GroupState {
+class GroupGettingGroup extends GroupState {}
+
+class GroupGettingGroupSuccess extends GroupState {
   final List<Group> groups;
 
-  GroupGettingSessionSuccess({required this.groups});
+  GroupGettingGroupSuccess({required this.groups});
 
   @override
   List<Object?> get props => [
         groups,
       ];
 
-  GroupGettingSessionSuccess copyWith({List<Group>? groups}) {
-    return GroupGettingSessionSuccess(groups: groups ?? this.groups);
+  GroupGettingGroupSuccess copyWith({List<Group>? groups}) {
+    return GroupGettingGroupSuccess(groups: groups ?? this.groups);
   }
 }
 
-class GroupGettingSessionFailure extends GroupState {
+class GroupGettingGroupFailure extends GroupState {
   final Object exception;
 
-  GroupGettingSessionFailure(this.exception);
+  GroupGettingGroupFailure(this.exception);
 
   @override
   List<Object> get props => [exception];

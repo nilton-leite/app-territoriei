@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:territoriei/utils/interfaces/ihttp_client.dart';
 
 class DioHttpClient implements IHttpClient {
