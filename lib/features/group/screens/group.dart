@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:territoriei/features/report/screens/report_by_group.dart';
 import 'package:territoriei/repositories/igroup_repository.dart';
 import 'package:territoriei/routes.dart';
 import 'package:territoriei/widget/dynamic_icon.dart';
@@ -172,7 +173,14 @@ class _GroupState extends State<_Group> {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
-                              onTap: () => '',
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  ReportByGroupScreen.route,
+                                  arguments: ReportByGroupScreenArguments(
+                                      groupId: groups[index].id),
+                                );
+                              },
                               child: Card(
                                 color: Color(0xFF868A8F),
                                 clipBehavior: Clip.antiAlias,
