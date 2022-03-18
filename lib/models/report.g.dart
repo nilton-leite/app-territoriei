@@ -13,6 +13,7 @@ Report _$ReportFromJson(Map<String, dynamic> json) => Report(
       streets: json['streets'] as List,
       report_id: json['report_id'] as int,
       qtde_blocks: json['qtde_blocks'] as int,
+      status: $enumDecode(_$IStatusEnumMap, json['status']),
       groups: Group.fromJson(json['groups'] as Map<String, dynamic>),
       districts: District.fromJson(json['districts'] as Map<String, dynamic>),
     );
@@ -22,6 +23,13 @@ Map<String, dynamic> _$ReportToJson(Report instance) => <String, dynamic>{
       'streets': instance.streets,
       'report_id': instance.report_id,
       'qtde_blocks': instance.qtde_blocks,
+      'status': _$IStatusEnumMap[instance.status],
       'groups': instance.groups,
       'districts': instance.districts,
     };
+
+const _$IStatusEnumMap = {
+  IStatus.available: 'AVAILABLE',
+  IStatus.unavailable: 'UNAVAILABLE',
+  IStatus.reserved: 'RESERVED',
+};

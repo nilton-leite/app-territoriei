@@ -7,6 +7,15 @@ import 'package:territoriei/models/group.dart';
 
 part 'report.g.dart';
 
+enum IStatus {
+  @JsonValue('AVAILABLE')
+  available,
+  @JsonValue('UNAVAILABLE')
+  unavailable,
+  @JsonValue('RESERVED')
+  reserved,
+}
+
 @JsonSerializable()
 class Report extends Equatable {
   @JsonKey(name: '_id')
@@ -14,6 +23,7 @@ class Report extends Equatable {
   final List streets;
   final int report_id;
   final int qtde_blocks;
+  final IStatus status;
   final Group groups;
   final District districts;
 
@@ -22,6 +32,7 @@ class Report extends Equatable {
     required this.streets,
     required this.report_id,
     required this.qtde_blocks,
+    required this.status,
     required this.groups,
     required this.districts,
   });
@@ -32,5 +43,5 @@ class Report extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, streets, report_id, qtde_blocks, groups, districts];
+      [id, streets, report_id, qtde_blocks, status, groups, districts];
 }

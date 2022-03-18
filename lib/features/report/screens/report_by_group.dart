@@ -183,10 +183,25 @@ class _ReportByGroupState extends State<_ReportByGroup> {
                       child: ListView.builder(
                         itemCount: reports.length,
                         itemBuilder: (context, index) {
+                          final String text;
+                          final Color cor;
+                          switch (reports[index].status.name) {
+                            case 'available':
+                              text = 'Disponível';
+                              cor = Colors.green;
+                              break;
+                            case 'reserved':
+                              text = 'Reservado';
+                              cor = Color(0xffFFC000);
+                              break;
+                            default:
+                              text = 'Indisponível';
+                              cor = Colors.red;
+                          }
                           return CardReport(
                             colorCard: Color(0xffE5E5E5),
-                            colorTooltip: Colors.green,
-                            messageTooltip: "Disponível",
+                            colorTooltip: cor,
+                            messageTooltip: text,
                             title: '#' + reports[index].report_id.toString(),
                             subtitle: reports[index].districts.description,
                             textBold: 'Bairro: ',
