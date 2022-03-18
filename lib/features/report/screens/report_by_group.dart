@@ -8,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:territoriei/features/group/screens/screens.dart';
 import 'package:territoriei/repositories/ireport_repository.dart';
 import 'package:territoriei/routes.dart';
+import 'package:territoriei/widget/card_report.dart';
+import 'package:territoriei/widget/compact_header.dart';
 import 'package:territoriei/widget/navigator_scope.dart';
 import 'package:territoriei/widget/progress.dart';
 
@@ -47,7 +49,7 @@ class _ReportByGroupScreensState extends State<ReportByGroupScreen> {
     return NavigatorScope(
       home: _ReportByGroup(arguments: widget.arguments),
       onWillPop: () async {
-        return false;
+        return true;
       },
       builder: (BuildContext context, Navigator navigator) {
         return BlocProvider.value(
@@ -97,16 +99,13 @@ class _ReportByGroupState extends State<_ReportByGroup> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+        GlobalKey<RefreshIndicatorState>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Territórios'),
-        bottom: PreferredSize(
-          child: Container(
-            color: Colors.orange,
-            height: 2.0,
-          ),
-          preferredSize: const Size.fromHeight(4.0),
-        ),
+      appBar: CompactHeader(
+        title: 'Territórios',
+        onBack: () => Navigator.of(context).pop(),
+        showDivider: true,
       ),
       backgroundColor: const Color(0xff3E434C),
       body: BlocConsumer<ReportBloc, ReportState>(
@@ -135,19 +134,39 @@ class _ReportByGroupState extends State<_ReportByGroup> {
               children: [
                 Container(
                   margin: const EdgeInsets.only(top: 40, left: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  child: Column(
                     children: [
-                      Text(
-                        'TESTE',
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            color: Color(0xffFFFFFF),
-                            // letterSpacing: .5,
-                            fontSize: 30,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            reports[0].groups.description,
+                            style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                color: Color(0xffFFFFFF),
+                                // letterSpacing: .5,
+                                fontSize: 30,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Territórios do Grupo',
+                            style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                color: Color(0xffFFFFFF),
+                                // letterSpacing: .5,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -155,6 +174,34 @@ class _ReportByGroupState extends State<_ReportByGroup> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                 ),
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    width: double.infinity,
+                    child: RefreshIndicator(
+                      key: _refreshIndicatorKey,
+                      child: ListView.builder(
+                        itemCount: reports.length,
+                        itemBuilder: (context, index) {
+                          return CardReport(
+                            colorCard: Color(0xffE5E5E5),
+                            colorTooltip: Colors.green,
+                            messageTooltip: "Disponível",
+                            title: '#' + reports[index].report_id.toString(),
+                            subtitle: reports[index].districts.description,
+                            textBold: 'Bairro: ',
+                            thirdText: reports[index].qtde_blocks.toString() +
+                                ' quadras',
+                          );
+                        },
+                      ),
+                      onRefresh: () async {
+                        _reportBloc.add(ReportGetReportEvent(
+                            groupId: widget.arguments.groupId));
+                      },
+                    ),
+                  ),
+                )
               ],
             );
           }

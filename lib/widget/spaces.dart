@@ -1,0 +1,48 @@
+import '../utils/scale.dart';
+
+///Design system 8-point scale
+///Represents the value scaled with the screen dimensions
+///
+///Example: index 1 represents 8, index 2 represents 16
+final spaces = {
+  1: scale(8),
+  2: scale(16),
+  3: scale(24),
+  4: scale(32),
+  5: scale(40),
+  6: scale(48),
+  7: scale(56),
+  8: scale(64),
+  9: scale(72),
+  10: scale(80),
+  11: scale(88),
+  12: scale(96),
+  13: scale(104),
+  14: scale(112),
+  15: scale(120),
+  16: scale(128),
+  17: scale(136),
+  18: scale(144),
+  19: scale(152),
+  20: scale(160),
+  21: scale(168),
+  22: scale(176),
+  23: scale(184),
+  24: scale(192),
+  25: scale(200),
+  26: scale(208),
+  27: scale(216),
+  28: scale(224),
+  29: scale(232),
+  30: scale(240),
+  31: scale(248),
+  32: scale(256),
+  33: scale(264),
+  34: scale(272),
+  35: scale(280),
+  36: scale(288),
+  37: scale(296),
+  38: scale(304),
+  39: scale(312),
+  40: scale(320),
+};

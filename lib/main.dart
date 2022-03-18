@@ -42,6 +42,7 @@ class Territoriei extends StatefulWidget {
 }
 
 class TerritorieiState extends State<Territoriei> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     final language = Translations.of(context).shared;
@@ -80,6 +81,7 @@ class TerritorieiState extends State<Territoriei> {
           ),
         ],
         child: MaterialApp(
+          navigatorKey: _navigatorKey,
           theme: ThemeData(
             primaryColor: Colors.white,
             appBarTheme: const AppBarTheme(
